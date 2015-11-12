@@ -4,6 +4,7 @@ var SantaFunke = angular.module('SantaFunke', []);
 var currentUserId;
 // var userType;
 var currentUserName;
+var currentUserAddress;
 
 /* START Session Controller
 Lets have a session controller so that we can change the styling based on who is logged in
@@ -15,6 +16,7 @@ SantaFunke.controller('SessionController', ['$http', function($http){
     controller.current_user = data.data.current_user;
     currentUserId = data.data.current_user.id;
     currentUserName = data.data.current_user.name;
+    currentUserAddress = data.data.current_user.address;
     // userType = data.data.current_user.type;
     console.log("the current user is: ", controller.current_user);
   }, function(error){
@@ -60,26 +62,19 @@ SantaFunke.controller('MapController', ['$scope', '$http', function($scope, $htt
   var map;
 
   this.initialize = function() {
-    console.log("testing in the map initialize function!");
+    console.log("currentUserAddress: ", currentUserAddress);
     geocoder = new google.maps.Geocoder();
     var latlng = new google.maps.LatLng(-34.397, 150.644);
     var mapOptions = {
       zoom: 8,
-      center: latlng
+      center: latlng,
+      mapTypeId: google.maps.MapTypeId.HYBRID
     }
     map = new google.maps.Map(document.getElementById("map"), mapOptions);
   }
 
-  this.initMap = function() {
-    map = new google.maps.Map(document.getElementById('map'), {
-      center: {lat: -34.397, lng: 150.644},
-      zoom: 8,
-      mapTypeId: google.maps.MapTypeId.HYBRID
-    });
-  }
-
   this.codeAddress = function() {
-    var address = document.getElementById("address").value;
+    var address = currentUserAddress;
     geocoder.geocode( { 'address': address}, function(results, status) {
       if (status == google.maps.GeocoderStatus.OK) {
         map.setCenter(results[0].geometry.location);

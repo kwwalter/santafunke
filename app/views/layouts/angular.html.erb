@@ -3,34 +3,29 @@
 <head>
   <title>SantaFunke</title>
   <!-- MAPPY THINGS IN THE HEAD -->
-
-  <!-- These are all related to angularjs-google-maps... -->
-  <!-- <script src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.min.js"></script>
-  <%= javascript_include_tag 'ng-map-min', 'data-turbolinks-track' => true %>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> -->
-
   <!-- Now trying just the google maps api instructions instead.. -->
   <style type="text/css">
         html, body { height: 100%; margin: 0; padding: 0; }
         #map { height: 50%; }
   </style>
 
-  <!-- END OF MAPPY THINGS IN THE HEAD -->
   <%= csrf_meta_tags %>
+
   <!-- Compiled and minified CSS -->
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.2/css/materialize.min.css">
+
    <!-- our own style sheet -->
    <%= stylesheet_link_tag    'angular', media: 'all', 'data-turbolinks-track' => true %>
+
    <!-- Angular -->
    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js" charset="utf-8"></script>
+
    <!-- Jquery and Materialize.js -->
    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.2/js/materialize.min.js"></script>
-   <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCfLMjoP5Y4aKPf3uWT9X94bKXhqI98UN0&callback=initMap&libraries=places">
-   </script> -->
-   <script
-  src="http://maps.googleapis.com/maps/api/js?language=en"></script>
+
+   <!-- Another google maps cdn that i've had to include.. -->
+   <script src="http://maps.googleapis.com/maps/api/js?language=en"></script>
 </head>
 <body>
   <header>
@@ -196,7 +191,7 @@ function initMap() {
   <img src="http://1.bp.blogspot.com/-dZWOzEoZHs0/UDILL8QE-hI/AAAAAAAACog/o1V4u2WwFk0/s1600/SMART+BOY+FB.jpg" height="100">
 
   <!-- Map for child view! -->
-  <div id="map" style="width: 50%; margin: 0 auto;" ng-controller="MapController as mapCtrl" ng-init="mapCtrl.initMap()"></div>
+  <div id="map" style="width: 50%; margin: 0 auto;" ng-controller="MapController as mapCtrl" ng-init="mapCtrl.initialize()"></div>
 
   <!-- Please note, the code for this is predicated on current_user being a Child -->
     <!-- The use of "wishlistCtrl" is an attempt to be semantic, we want to use this model as the portal to all wishlist stuff

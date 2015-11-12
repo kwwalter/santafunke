@@ -5,7 +5,7 @@ var currentUserId;
 // var userType;
 var currentUserName;
 var currentUserAddress;
-var kidzAddresses = []; 
+var kidzAddresses = [];
 
 // this will allow us to execute functions after the Angular template has been completely loaded.. got it from: http://gsferreira.com/archive/2015/03/angularjs-after-render-directive/
 SantaFunke.directive('afterRender', ['$timeout', function ($timeout) {
@@ -101,7 +101,7 @@ SantaFunke.controller('MapController', ['$scope', '$http', function($scope, $htt
     geocoder = new google.maps.Geocoder();
     var latlng = new google.maps.LatLng(-34.397, 150.644);
     var mapOptions = {
-      zoom: 15,
+      zoom: 4,
       center: latlng,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     }
@@ -122,7 +122,10 @@ SantaFunke.controller('MapController', ['$scope', '$http', function($scope, $htt
           var marker = new google.maps.Marker({
               map: map,
               position: results[0].geometry.location,
-              animation: google.maps.Animation.DROP
+              animation: google.maps.Animation.DROP,
+              icon: "http://images3.wikia.nocookie.net/__cb20110806110719/pvzcc/images/a/a7/Emoticon_epicface.png"
+              //also an option:
+              // icon: "http://forums.childrenwithdiabetes.com/images/smilies/catchu.gif"
           });
         } else {
           alert("Santa could not find you for the following reason: " + status);

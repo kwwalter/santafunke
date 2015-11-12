@@ -6,6 +6,19 @@ var currentUserId;
 var currentUserName;
 var currentUserAddress;
 
+// this will allow us to execute functions after the Angular template has been completely loaded.. got it from: http://gsferreira.com/archive/2015/03/angularjs-after-render-directive/
+SantaFunke.directive('afterRender', ['$timeout', function ($timeout) {
+    var def = {
+        restrict: 'A',
+        terminal: true,
+        transclude: false,
+        link: function (scope, element, attrs) {
+            $timeout(scope.$eval(attrs.afterRender), 0);  //Calling a scoped method
+        }
+    };
+    return def;
+}]);
+
 /* START Session Controller
 Lets have a session controller so that we can change the styling based on who is logged in
 We can, later, use current_user.type to define which css we link! */
@@ -62,7 +75,6 @@ SantaFunke.controller('MapController', ['$scope', '$http', function($scope, $htt
   var map;
 
   this.initialize = function() {
-    console.log("currentUserAddress: ", currentUserAddress);
     geocoder = new google.maps.Geocoder();
     var latlng = new google.maps.LatLng(-34.397, 150.644);
     var mapOptions = {
@@ -71,9 +83,12 @@ SantaFunke.controller('MapController', ['$scope', '$http', function($scope, $htt
       mapTypeId: google.maps.MapTypeId.HYBRID
     }
     map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+    controller.codeAddress();
   }
 
   this.codeAddress = function() {
+    console.log("testing in codeAddress, and currentUserAddress: ", currentUserAddress);
     var address = currentUserAddress;
     geocoder.geocode( { 'address': address}, function(results, status) {
       if (status == google.maps.GeocoderStatus.OK) {

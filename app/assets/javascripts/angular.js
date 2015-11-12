@@ -51,8 +51,6 @@ SantaFunke.controller('ChildrenController', ['$http', function($http){
 
 
 
-
-
 /* START Toy Controller
   create a new toy??
 */

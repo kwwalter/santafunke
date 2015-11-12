@@ -2,6 +2,21 @@
 <html ng-app="SantaFunke">
 <head>
   <title>SantaFunke</title>
+  <!-- MAPPY THINGS IN THE HEAD -->
+
+  <!-- These are all related to angularjs-google-maps... -->
+  <!-- <script src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.min.js"></script>
+  <%= javascript_include_tag 'ng-map-min', 'data-turbolinks-track' => true %>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> -->
+
+  <!-- Now trying just the google maps api instructions instead.. -->
+  <style type="text/css">
+        html, body { height: 100%; margin: 0; padding: 0; }
+        #map { height: 50%; }
+  </style>
+
+  <!-- END OF MAPPY THINGS IN THE HEAD -->
   <%= csrf_meta_tags %>
   <!-- Compiled and minified CSS -->
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.2/css/materialize.min.css">
@@ -53,6 +68,32 @@
   </header>
 <!--  -->
 
+<!-- MAP THINGS!!! -->
+
+<!-- This is all related to angularjs-google-maps... -->
+<!-- <div style="height: 400px; width: 400px; border: 2px dashed blue;" ng-app="ngMap">
+  <ng-map center="[40.74, -74.18]"></ng-map>
+</div> -->
+
+<!-- Now trying to follow the Google Maps API instructions. This works, but placing pins is hard. Going back to the other one... -->
+
+<div id="map" style="width: 50%; margin: 0 auto;"></div>
+<script type="text/javascript">
+var map;
+function initMap() {
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: -34.397, lng: 150.644},
+    zoom: 8,
+    mapTypeId: google.maps.MapTypeId.HYBRID
+  });
+}
+</script>
+
+<script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCfLMjoP5Y4aKPf3uWT9X94bKXhqI98UN0&callback=initMap&libraries=places">
+</script>
+
+<!-- END OF MAP THINGS!!! -->
 
   <!-- Session Things -->
   <div id="session-div"

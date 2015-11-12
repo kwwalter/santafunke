@@ -123,7 +123,8 @@ SantaFunke.controller('MapController', ['$scope', '$http', function($scope, $htt
               map: map,
               position: results[0].geometry.location,
               animation: google.maps.Animation.DROP,
-              icon: "http://images3.wikia.nocookie.net/__cb20110806110719/pvzcc/images/a/a7/Emoticon_epicface.png"
+              icon: "http://www.dollywood.com/~/media/ParkContent/DW_COM/DW/Festivals/Icons/christmas_logo.ashx"
+              // icon: "http://images3.wikia.nocookie.net/__cb20110806110719/pvzcc/images/a/a7/Emoticon_epicface.png"
               //also an option:
               // icon: "http://forums.childrenwithdiabetes.com/images/smilies/catchu.gif"
           });

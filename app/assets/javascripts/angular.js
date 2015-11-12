@@ -5,6 +5,7 @@ var currentUserId;
 // var userType;
 var currentUserName;
 var currentUserAddress;
+var kidzAddresses = []; 
 
 // this will allow us to execute functions after the Angular template has been completely loaded.. got it from: http://gsferreira.com/archive/2015/03/angularjs-after-render-directive/
 SantaFunke.directive('afterRender', ['$timeout', function ($timeout) {
@@ -29,7 +30,7 @@ SantaFunke.controller('SessionController', ['$http', function($http){
     controller.current_user = data.data.current_user;
     currentUserId = data.data.current_user.id;
     currentUserName = data.data.current_user.name;
-    currentUserAddress = data.data.current_user.address;
+    currentUserAddress = [data.data.current_user.address]; // setting this equal to an array so that we can use one codeAddress function later to set the markers on the maps
     // userType = data.data.current_user.type;
     console.log("the current user is: ", controller.current_user);
   }, function(error){
@@ -54,6 +55,10 @@ SantaFunke.controller('ChildrenController', ['$http', function($http){
   $http.get('/users/children').then(function(data){
     // the get /users should return a data object containing all of the children
     controller.children = data.data.children;
+    for (var i = 0; i < controller.children.length; i++) {
+      kidzAddresses.push(controller.children[i].address);
+    }
+    console.log("inside of ChildrenController callback, kidzAddresses is now: ", kidzAddresses);
     // console.log(data);
   }, function(error){
     //what should we do with the errors?
@@ -74,33 +79,56 @@ SantaFunke.controller('MapController', ['$scope', '$http', function($scope, $htt
   var geocoder;
   var map;
 
-  this.initialize = function() {
+  this.initializeMapInChildView = function() {
     geocoder = new google.maps.Geocoder();
-    var latlng = new google.maps.LatLng(-34.397, 150.644);
+    var latlng = new google.maps.LatLng(90, 0); // the north pole, obviously.
     var mapOptions = {
-      zoom: 8,
+      zoom: 15,
       center: latlng,
-      mapTypeId: google.maps.MapTypeId.HYBRID
+      mapTypeId: google.maps.MapTypeId.ROADMAP
     }
     map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
-    controller.codeAddress();
+    controller.codeAddress(currentUserAddress);
   }
 
-  this.codeAddress = function() {
-    console.log("testing in codeAddress, and currentUserAddress: ", currentUserAddress);
-    var address = currentUserAddress;
-    geocoder.geocode( { 'address': address}, function(results, status) {
-      if (status == google.maps.GeocoderStatus.OK) {
-        map.setCenter(results[0].geometry.location);
-        var marker = new google.maps.Marker({
-            map: map,
-            position: results[0].geometry.location
-        });
-      } else {
-        alert("Geocode was not successful for the following reason: " + status);
-      }
-    });
+  this.initializeMapAndMarkersInElfView = function() {
+    // console.log("testing in initializeMapsInElfView, $scope.$parent is:", $scope.$parent);
+    var children = $scope.$parent.naughtyNiceCtrl.children;
+    // console.log("in initializeMapAndMarkersInElfView, children is: ", children);
+    // console.log("and $scope.$parent.controller is: ", $scope.$parent.controller);
+    // var kidzAddresses = [];
+    geocoder = new google.maps.Geocoder();
+    var latlng = new google.maps.LatLng(-34.397, 150.644);
+    var mapOptions = {
+      zoom: 15,
+      center: latlng,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    }
+    map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+    // for (var i = 0; i < children.length; i++) {
+    //   kidzAddresses.push(children[i].address);
+    // }
+
+    controller.codeAddress(kidzAddresses);
+  }
+
+  this.codeAddress = function(addresses) {
+    for (var j = 0; j < addresses.length; j++) {
+      geocoder.geocode( { 'address': addresses[j]}, function(results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+          map.setCenter(results[0].geometry.location);
+          var marker = new google.maps.Marker({
+              map: map,
+              position: results[0].geometry.location,
+              animation: google.maps.Animation.DROP
+          });
+        } else {
+          alert("Santa could not find you for the following reason: " + status);
+        }
+      });
+    }
   }
 
 }]);

@@ -121,6 +121,9 @@ function initMap() {
   <% if current_user.type === "Elf" %>
     <!-- Instantiate the list of children using the ChildrenController -->
     <div id="naughty-nice" ng-controller="ChildrenController as naughtyNiceCtrl">
+      <!-- Trying to render a map with all children on there as markers -->
+      <h5>...like these children!</h5>
+      <div id="map" style="width: 50%; margin: 0 auto;" ng-controller="MapController as mapCtrl" after-render="mapCtrl.initializeMapAndMarkersInElfView"></div>
       <div class="child" ng-repeat="child in naughtyNiceCtrl.children">
         <!-- entirety of the child view. click to expand the child's wishlist. -->
         <h4>{{child.name}}</h4></br>
@@ -191,7 +194,8 @@ function initMap() {
   <img src="http://1.bp.blogspot.com/-dZWOzEoZHs0/UDILL8QE-hI/AAAAAAAACog/o1V4u2WwFk0/s1600/SMART+BOY+FB.jpg" height="100">
 
   <!-- Map for child view! -->
-  <div id="map" style="width: 50%; margin: 0 auto;" ng-controller="MapController as mapCtrl" after-render="mapCtrl.initialize"></div>
+  <h5>Maybe Santa will bring you a present here..</h5>
+  <div id="map" style="width: 50%; margin: 0 auto;" ng-controller="MapController as mapCtrl" after-render="mapCtrl.initializeMapInChildView"></div>
 
   <!-- Please note, the code for this is predicated on current_user being a Child -->
     <!-- The use of "wishlistCtrl" is an attempt to be semantic, we want to use this model as the portal to all wishlist stuff

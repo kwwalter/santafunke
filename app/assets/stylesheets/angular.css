@@ -55,3 +55,9 @@ marquee {
 .child {
   border: 2px solid black;
 }
+
+#map {
+  height: 300px;
+  width: 500px;
+  box-shadow: 3px 3px 10px gray;
+}

@@ -60,6 +60,7 @@ SantaFunke.controller('MapController', ['$scope', '$http', function($scope, $htt
   var map;
 
   this.initialize = function() {
+    console.log("testing in the map initialize function!");
     geocoder = new google.maps.Geocoder();
     var latlng = new google.maps.LatLng(-34.397, 150.644);
     var mapOptions = {
@@ -69,9 +70,6 @@ SantaFunke.controller('MapController', ['$scope', '$http', function($scope, $htt
     map = new google.maps.Map(document.getElementById("map"), mapOptions);
   }
 
-  // run the function..
-  // setTimeout(this.initialize(), 1000);
-
   this.initMap = function() {
     map = new google.maps.Map(document.getElementById('map'), {
       center: {lat: -34.397, lng: 150.644},
@@ -79,8 +77,6 @@ SantaFunke.controller('MapController', ['$scope', '$http', function($scope, $htt
       mapTypeId: google.maps.MapTypeId.HYBRID
     });
   }
-
-  $timeout(this.initMap(), 100000);
 
   this.codeAddress = function() {
     var address = document.getElementById("address").value;

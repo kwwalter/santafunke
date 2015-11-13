@@ -157,7 +157,7 @@ We then determined what our general model structure would be, and created wirefr
 
 Then, we set up Rails, and then our models and migrations. From there, we were off and running. We split up the work so that two of us were working on the front end, and the other two worked on the back end. We spent a lot of time working in small conference rooms, with one computer hooked up to the smart TV, so that we could collaborate in real-time. Doing so made our process much easier in that we could throw around ideas and incorporate them immediately, and could also avoid serious merge errors. When we worked outside of the conference room setting, we were in contact with one another through Slack.
 
-All in all, we're happy with our final product, and we hope that you enjoy creating your holiday wishlist (and also tattling on your friends / enemies). 
+All in all, we're happy with our final product, and we hope that you enjoy creating your holiday wishlist (and also tattling on your friends / enemies).
 
 ## Installation Instructions
 
@@ -169,3 +169,7 @@ You can use our SantaFunke app [here](https://santafunke.herokuapp.com/).
 * Also, wanted to give users negative points if they have been on the receiving end of too many naughty judgments!
 * Mechanism for having the elf choose a toy from a child's wishlist has not been built.
 * Use CanCan to restrict access to particular resources based on user type.
+
+## Citations
+* [Angular After Render Directive] (http://gsferreira.com/archive/2015/03/angularjs-after-render-directive/)
+* [Helpful Maps Tutorial] (http://www.allprogrammingtutorials.com/tutorials/google-maps-using-angularjs.php)
